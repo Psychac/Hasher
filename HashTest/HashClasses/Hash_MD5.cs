@@ -14,7 +14,7 @@ namespace HasherTest.HashClasses
     public class Hash_MD5 : IHash
     {
         public EventHandler<double>? ProgressUpdater { get; set; }
-        public double CurrentProgress { get; set; }
+        public double CurrentProgressPercent { get; set; }
 
         public string HashFile(FileData file, long bufferSize)
         {
@@ -27,8 +27,8 @@ namespace HasherTest.HashClasses
                 do
                 {
                     bytesRead = digestStream.Read(buffer, 0, buffer.Length);
-                    CurrentProgress = (double)fileStream.Position / fileStream.Length * 100;
-                    ProgressUpdater?.Invoke(this, CurrentProgress);
+                    CurrentProgressPercent = (double)fileStream.Position / fileStream.Length * 100;
+                    ProgressUpdater?.Invoke(this, CurrentProgressPercent);
                 } while (bytesRead > 0);
             }
 

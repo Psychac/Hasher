@@ -12,14 +12,17 @@ namespace HasherTest.Interfaces
         /// Name of the file.
         /// </summary>
         string Name { get; }
+
         /// <summary>
         /// File size in bytes.
         /// </summary>
         long Size { get; }
+
         /// <summary>
         /// Location of the file.
         /// </summary>
         string Path { get; }
+
         /// <summary>
         /// Creation date of the file.
         /// </summary>

@@ -10,7 +10,7 @@ namespace HasherTest.HashClasses
 {
     public class Hash_Blake3 : IHash
     {
-        public double CurrentProgress {  get; set; }
+        public double CurrentProgressPercent {  get; set; }
         
         public EventHandler<double>? ProgressUpdater { get; set; }
         
@@ -24,8 +24,8 @@ namespace HasherTest.HashClasses
             {
                 bytesRead = fileStream.Read(buffer, 0, buffer.Length);
                 blake3.Update(buffer.AsSpan(0, bytesRead));
-                CurrentProgress = (double)fileStream.Position / fileStream.Length * 100;
-                ProgressUpdater?.Invoke(this, CurrentProgress);
+                CurrentProgressPercent = (double)fileStream.Position / fileStream.Length * 100;
+                ProgressUpdater?.Invoke(this, CurrentProgressPercent);
             } while (bytesRead > 0);
 
             return blake3.Finalize().ToString();
@@ -41,8 +41,8 @@ namespace HasherTest.HashClasses
             {
                 bytesRead = fileStream.Read(buffer, 0, buffer.Length);
                 blake3.UpdateWithJoin(buffer.AsSpan(0, bytesRead));
-                CurrentProgress = (double)fileStream.Position / fileStream.Length * 100;
-                ProgressUpdater?.Invoke(this, CurrentProgress);
+                CurrentProgressPercent = (double)fileStream.Position / fileStream.Length * 100;
+                ProgressUpdater?.Invoke(this, CurrentProgressPercent);
             } while (bytesRead > 0);
 
             return blake3.Finalize().ToString();

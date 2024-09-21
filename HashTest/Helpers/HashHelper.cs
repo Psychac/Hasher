@@ -79,7 +79,7 @@ namespace HasherTest.Helpers
             }
         }
 
-        public static IHash? getHashType(HashFunction hashFunction)
+        public static IHash? GetHashType(HashFunction hashFunction)
         {
             switch (hashFunction)
             {

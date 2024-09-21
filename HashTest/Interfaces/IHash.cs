@@ -9,7 +9,7 @@ namespace HasherTest.Interfaces
 {
     public interface IHash
     {
-        public double CurrentProgress { get; set; }
+        public double CurrentProgressPercent { get; set; }
         public EventHandler<double>? ProgressUpdater { get; set; }
         public abstract string HashFile(FileData file, long bufferSize);
     }

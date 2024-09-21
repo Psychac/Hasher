@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="200"
+             x:Class="Hasher.Avalonia.Views.CreateHashView"
+			 xmlns:vm="clr-namespace:Hasher.Avalonia.ViewModels;assembly=Hasher.Avalonia"
+			 x:DataType="vm:CreateHashViewModel">
+	<Design.DataContext>
+		<vm:CreateHashViewModel/>
+	</Design.DataContext>
+	<Grid RowDefinitions="Auto,Auto">
+		<DockPanel Name="MenuPanel"
+		   Grid.Row="0"
+		   Margin="10,0,10,0">
+			<ComboBox Name="cmbxAlgorithm"
+					  Width="75"
+					  VerticalAlignment="Center"
+					  Margin="5,0,5,0"
+					  DockPanel.Dock="Right"/>
+			<ComboBox Name="cmbxBufferSize"
+					  Width="75"
+					  VerticalAlignment="Center"
+					  Margin="5,0,5,0"
+					  DockPanel.Dock="Right"/>
+			<Button Name="btnSelectFiles"
+					Height="30"
+					Width="75"
+					Margin="5,0,5,0"
+					VerticalAlignment="Center"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Command="{Binding OpenFileCommand}"
+					Content="Files"/>
+			<Button Name="btnSelectFolders"
+					Height="30"
+					Width="75"
+					Margin="5,0,5,0"
+					VerticalAlignment="Center"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Content="Folders"/>
+			<Button Name="btnCancel"
+					Height="30"
+					Width="75"
+					Margin="5,0,5,0"
+					VerticalAlignment="Center"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Command="{Binding CancelCommand}"
+					Content="Cancel"/>
+		</DockPanel>
+		<ScrollViewer Grid.Row="1"
+					  Height="100"
+					  Margin="10"
+					  >
+			<ItemsControl ItemsSource="{Binding Files}">
+				<ItemsControl.ItemTemplate>
+					
+				<DataTemplate DataType="vm:FileDataViewModel">
+					<Grid ColumnDefinitions="0.5*,8*,1.5*"
+						  HorizontalAlignment="Stretch"
+						  Margin="2">
+						<CheckBox Grid.Column="0" 
+								  Margin="5,0"
+								  IsChecked="{Binding IsSelected}"/>
+						<TextBlock Grid.Column="1" 
+								   Margin="5,0"
+								   TextTrimming="WordEllipsis"
+								   Text="{Binding FileName}"
+								   VerticalAlignment="Center"/>
+						<TextBlock Grid.Column="2" 
+								   Margin="5,0"
+								   Text="{Binding FileSize}"
+								   VerticalAlignment="Center"/>
+					</Grid>
+				</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

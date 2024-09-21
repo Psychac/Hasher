@@ -27,10 +27,13 @@ namespace HasherTest.ViewModels
         public HasherViewModel()
         {
             CurrentFileName = "CurrentFileName";
-            HashType = HashFunction.Blake3;
             SeparatorChar = '*';
             CommentChar = ';';
-        }
+            HashTypes = Enum.GetValues<HashFunction>().
+                Cast<HashFunction>().
+                Where(hash => hash.ToString() != "None").
+                ToDictionary(hash => hash.ToString(), hash => (int)hash);
+        } 
 
         [ObservableProperty]
         private Dictionary<string, int> bufferSizes = new Dictionary<string, int>() { 
@@ -46,7 +49,13 @@ namespace HasherTest.ViewModels
         };
 
         [ObservableProperty]
-        private string bufferSize;
+        private string bufferSize = string.Empty;
+
+        [ObservableProperty]
+        private Dictionary<string, int> hashTypes = new Dictionary<string, int>();
+
+        [ObservableProperty]
+        private string hashTypeName = string.Empty;
 
         #region ProgressBars
 
@@ -207,6 +216,7 @@ namespace HasherTest.ViewModels
             // Process open file dialog box results
             if (result == true)
             {
+                HashType = (HashFunction)Enum.Parse(typeof(HashFunction), HashTypeName);
                 //HashType = Helpers.HashHelper.IdentifyHashType(dialog.FileName);
                 Task.Run(async () =>
                 {
@@ -319,7 +329,7 @@ namespace HasherTest.ViewModels
         /// <returns></returns>
         public string GetHashForFile(FileData file, HashFunction hashFunction)
         {
-            IHash hash = Helpers.HashHelper.getHashType(hashFunction)!;
+            IHash hash = Helpers.HashHelper.GetHashType(hashFunction)!;
             hash.ProgressUpdater += UpdateProgress;
             return hash.HashFile(file, Helpers.HashHelper.GetBufferSize(file.SizeInMBs));
         }

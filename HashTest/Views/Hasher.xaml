@@ -38,8 +38,8 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <WrapPanel Grid.Column="0" VerticalAlignment="Center">
                 <ui:Button
@@ -83,10 +83,11 @@
                     Hash Type
                 </TextBlock>
                 <ComboBox
-                    Width="Auto"
+                    MinWidth="190px"
                     Margin="5,0,5,0"
-                    ItemsSource="{Binding}"
-                    SelectedValue="{Binding HashType}" />
+                    ItemsSource="{Binding HashTypes.Keys}"
+                    SelectedIndex="6"
+                    SelectedValue="{Binding HashTypeName}" />
                 <TextBlock
                     Margin="5,0,5,0"
                     VerticalAlignment="Center"
@@ -94,8 +95,8 @@
                     BufferSize
                 </TextBlock>
                 <ComboBox
-                    Width="Auto"
-                    Margin="5,0,5,0"
+                    Width="100px"
+                    Margin="5,0,10,0"
                     ItemsSource="{Binding BufferSizes.Keys}"
                     SelectedIndex="5"
                     SelectedValue="{Binding BufferSize}" />
